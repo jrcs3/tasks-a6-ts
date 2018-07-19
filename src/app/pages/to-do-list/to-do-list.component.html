@@ -1,0 +1,19 @@
+<p>Todo List</p>
+<table class="table table-striped">
+  <tr>
+      <th>Id</th>
+      <th>Title</th>
+      <th>Due</th>
+      <th>Assigned To</th>
+      <th>Done</th>
+      <th>Action</th>
+  </tr>
+  <tr *ngFor="let toDo of toDoList ">
+      <td>{{toDo.id}}</td> 
+      <td>{{toDo.title}}</td>
+      <td>{{toDo.due | date}}</td>
+      <td>{{toDo.assignedTo}}</td>
+      <td>{{toDo.done?'X':''}}</td>
+      <td><a href="/toDo/{{toDo.id}}">Edit</a> | <button class='link-button' (click)="deleteToDo(toDo.id)">Delete</button></td>
+  </tr>
+</table>

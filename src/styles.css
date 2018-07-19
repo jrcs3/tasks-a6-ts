@@ -1,0 +1,20 @@
+.table {
+    background-color: white;
+}
+.table-striped tr:nth-child(even) {
+    background-color: lightblue;
+}
+
+a {
+    color: blue;
+}
+
+button.link-button {
+    background:none!important;
+    color:blue;
+    border:none; 
+    padding:0!important;
+    font: inherit;
+    /*border is optional*/
+    cursor: pointer;
+}

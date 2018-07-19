@@ -1,0 +1,25 @@
+<h2>To Do Item</h2>
+<div *ngIf="isLoaded == false">
+    <p>Loading ...</p>
+</div>
+<div *ngIf="isLoaded == true">
+    <form [formGroup]="toDoForm" novalidate>
+        <div *ngIf="!isNew">
+            <label>ID:</label>{{toDo.id}}
+            <br />
+        </div>
+        <label for="title">Title:</label>
+        <input type="text" name="title" id="title" formControlName="title" />
+        <br />
+        <label for="due">Due:</label>
+        <input type="text" name="due" id="due" formControlName="due" />
+        <br />
+        <label for="due">Assigned To:</label>
+        <input type="text" name="assignedTo" id="assignedTo" formControlName="assignedTo" />
+        <br />
+        <label for="done">Done:</label>
+        <input id="done" name="done" type="checkbox" formControlName="done" />
+        <br />
+        <button (click)="updateTodo()">Save To Do</button>
+    </form>
+</div>
