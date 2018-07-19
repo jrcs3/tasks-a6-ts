@@ -3,12 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { ToDo } from "../../classes/to-do";
 import { TodoService } from "../../services/todo.service";
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  FormControl
-} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, FormControl} from "@angular/forms";
 
 @Component({
   selector: "app-to-do-item",
@@ -20,16 +15,14 @@ export class ToDoItemComponent implements OnInit, OnDestroy {
   public toDo: ToDo;
   public isNew: boolean = false;
   public isLoaded: boolean = false;
-  private api: TodoService;
   public toDoForm: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
-    api: TodoService,
-    private fb: FormBuilder
-  ) {
-    this.api = api;
-  }
+    private api: TodoService,
+    private fb: FormBuilder,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.subscriptions.push(
@@ -38,15 +31,8 @@ export class ToDoItemComponent implements OnInit, OnDestroy {
         if (id == null) {
           this.isNew = true;
           this.isLoaded = true;
-          const params = {
-            id: null,
-            title: "",
-            due: "",
-            assignedTo: "",
-            done: false
-          };
+          const params = { id: null, title: "", due: "", assignedTo: "", done: false };
           this.toDo = new ToDo(params);
-          console.log("new");
           this.createForm();
         } else {
           this.subscriptions.push(
@@ -54,7 +40,6 @@ export class ToDoItemComponent implements OnInit, OnDestroy {
               result => {
                 this.toDo = result;
                 this.createForm();
-                console.log("edit");
                 this.isLoaded = true;
               },
               error => console.log(error)
@@ -65,7 +50,7 @@ export class ToDoItemComponent implements OnInit, OnDestroy {
     );
   }
 
-  createForm(): void {
+  private createForm(): void {
     this.toDoForm = this.fb.group({
       title: [this.toDo.title, [Validators.required]],
       due: [this.toDo.due, [Validators.required]],
@@ -86,9 +71,9 @@ export class ToDoItemComponent implements OnInit, OnDestroy {
         const toDo = new ToDo(params);
         this.subscriptions.push(
           this.api.addTodo(toDo).subscribe(result => {
-            this.toDo = toDo;
-            this.isNew = false;
-            console.log(result);
+            //this.toDo = toDo;
+            //this.isNew = false;
+            this.router.navigate(["toDoList"]);
           })
         );
       } else {
@@ -97,7 +82,7 @@ export class ToDoItemComponent implements OnInit, OnDestroy {
         const toDo = new ToDo(params);
         this.subscriptions.push(
           this.api.editTodoById(id, toDo).subscribe(result => {
-            console.log(result);
+            this.router.navigate(["toDoList"]);
           })
         );
       }

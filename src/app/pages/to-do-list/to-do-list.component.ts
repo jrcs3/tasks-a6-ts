@@ -21,7 +21,6 @@ export class ToDoListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log("List: Before Subscription");
     this.loadList();
   }
 
@@ -32,19 +31,15 @@ export class ToDoListComponent implements OnInit, OnDestroy {
   private loadList() {
     this.subscriptions.push(
       this.api.getTodos().subscribe(result => {
-        console.log(result);
         this.toDoList = result;
       }, error => console.error(error))
     );
   }
 
   deleteToDo(id) {
-    //event.preventDefault();
     this.subscriptions.push(
       this.api.deleteTodoById(id).subscribe(result => {
         this.loadList();
-        //console.log(result);
-        //this.toDoList = result;
       }, error => console.error(error))
     );
   }
