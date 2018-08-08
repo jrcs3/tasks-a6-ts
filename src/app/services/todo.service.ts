@@ -9,27 +9,29 @@ export class AppSettings {
 @Injectable({
   providedIn: 'root'
 })
+
+//This class is intened to simulate a AngularJS service using $resource.
 export class TodoService {
 
   constructor(private http: HttpClient) {}
 
-  public getTodos() {
+  public query() {
     return this.http.get<ToDo[]>(AppSettings.API_ENDPOINT + 'ToDos');
   }
 
-  public getTodoById(id: any) {
+  public get(id: any) {
     return this.http.get<ToDo>(AppSettings.API_ENDPOINT + 'ToDos/' + id);
   } 
 
-  public addTodo(todo:ToDo) {
+  public add(todo:ToDo) {
     return this.http.post<any>(AppSettings.API_ENDPOINT + 'ToDos', todo);
   }
 
-  public editTodoById(id: any, todo:ToDo) {
+  public edit(id: any, todo:ToDo) {
     return this.http.put<ToDo>(AppSettings.API_ENDPOINT + 'ToDos/' + id, todo);
   }
 
-  public deleteTodoById(id: any) {
+  public delete(id: any) {
     return this.http.delete<any>(AppSettings.API_ENDPOINT + 'ToDos/' + id);
   }
  

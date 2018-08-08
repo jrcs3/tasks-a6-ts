@@ -30,7 +30,7 @@ export class ToDoListComponent implements OnInit, OnDestroy {
 
   private loadList() {
     this.subscriptions.push(
-      this.api.getTodos().subscribe(result => {
+      this.api.query().subscribe(result => {
         this.toDoList = result;
       }, error => console.error(error))
     );
@@ -38,7 +38,7 @@ export class ToDoListComponent implements OnInit, OnDestroy {
 
   deleteToDo(id) {
     this.subscriptions.push(
-      this.api.deleteTodoById(id).subscribe(result => {
+      this.api.delete(id).subscribe(result => {
         this.loadList();
       }, error => console.error(error))
     );

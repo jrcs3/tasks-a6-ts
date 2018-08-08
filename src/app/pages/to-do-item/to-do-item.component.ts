@@ -36,7 +36,7 @@ export class ToDoItemComponent implements OnInit, OnDestroy {
           this.createForm();
         } else {
           this.subscriptions.push(
-            this.api.getTodoById(id).subscribe(
+            this.api.get(id).subscribe(
               result => {
                 this.toDo = result;
                 this.createForm();
@@ -70,9 +70,7 @@ export class ToDoItemComponent implements OnInit, OnDestroy {
         const params = { id: null, title, due, assignedTo, done };
         const toDo = new ToDo(params);
         this.subscriptions.push(
-          this.api.addTodo(toDo).subscribe(result => {
-            //this.toDo = toDo;
-            //this.isNew = false;
+          this.api.add(toDo).subscribe(result => {
             this.router.navigate(["toDoList"]);
           })
         );
@@ -81,7 +79,7 @@ export class ToDoItemComponent implements OnInit, OnDestroy {
         const params = { id, title, due, assignedTo, done };
         const toDo = new ToDo(params);
         this.subscriptions.push(
-          this.api.editTodoById(id, toDo).subscribe(result => {
+          this.api.edit(id, toDo).subscribe(result => {
             this.router.navigate(["toDoList"]);
           })
         );
